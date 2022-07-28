@@ -18,6 +18,9 @@ class Actor(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True)
     birthday = models.DateField(blank=True, null=True)
 
+    def get_url(self):
+        return reverse('actor_detail', args=[self.slug])
+
     def __str__(self):
         if self.gender == self.MALE:
             return f'Актер {self.first_name} {self.last_name}'
@@ -30,6 +33,9 @@ class Composer(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True)
     birthday = models.DateField(blank=True, null=True)
 
+    def get_url(self):
+        return reverse('composer_detail', args=[self.slug])
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -39,6 +45,9 @@ class Director(models.Model):
     last_name = models.CharField(max_length=100, default='NoName')
     slug = models.SlugField(default='', null=False, db_index=True)
     birthday = models.DateField(blank=True, null=True)
+
+    def get_url(self):
+        return reverse('director_detail', args=[self.slug])
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
