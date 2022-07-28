@@ -15,6 +15,7 @@ class Actor(models.Model):
     last_name = models.CharField(max_length=100, default='NoName')
     gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
     slug = models.SlugField(default='', null=False, db_index=True)
+    birthday = models.DateField(blank=True, null=True)
 
     def __str__(self):
         if self.gender == self.MALE:
