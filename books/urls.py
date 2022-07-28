@@ -2,5 +2,5 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-    # path('', views.show_start_page),
+    path('', views.BooksView.as_view()),
 ]
