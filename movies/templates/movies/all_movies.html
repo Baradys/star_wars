@@ -6,7 +6,7 @@
 <h2>Список всех фильмов</h2>
     <ul>
         {% for movie in movies %}
-            <li>{{movie}}</li>
+            <li><a href="{{movie.get_url}}">{{movie}}</a></li>
         {% endfor%}
     </ul>
 {% endblock %}

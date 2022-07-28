@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -65,6 +66,9 @@ class Movie(models.Model):
     date = models.DateField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
     slug = models.SlugField(default='', null=False, db_index=True)
+
+    def get_url(self):
+        return reverse('movie_detail', args=[self.slug])
 
     def __str__(self):
         return self.name
