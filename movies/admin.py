@@ -7,6 +7,7 @@ from .models import Movie, Countries
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['name', 'rating_rotten_tomatoes', 'rating_IMBd']
+    filter_horizontal = ['countries']
 
 
 @admin.register(Countries)
