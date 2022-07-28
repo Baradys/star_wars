@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Актеры</title>
-</head>
-<body>
+{% extends 'movies/base.html' %}
 
-</body>
-</html>
+{% block title %} Все актеры {% endblock %}
+
+{% block content %}
+<h2>Список всех актеров</h2>
+    <ul>
+        {% for actor in actors %}
+            <li><a href="{{actor.get_url}}">{{actor}}</a></li>
+        {% endfor%}
+    </ul>
+{% endblock %}
