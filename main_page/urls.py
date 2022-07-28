@@ -2,10 +2,9 @@ from . import views
 from django.urls import path
 
 urlpatterns = [
-    path('', views.show_start_page),
-    path('movies', views.show_all_movies),
-    path('games', views.show_all_games),
-    path('books', views.show_all_books),
-    path('serials', views.show_all_serials),
-
+    # path('', views.show_start_page),
+    path('movies', views.MoviesView.as_view()),
+    path('games', views.GamesView.as_view()),
+    path('books', views.BooksView.as_view()),
+    path('serials', views.SerialsView.as_view()),
 ]

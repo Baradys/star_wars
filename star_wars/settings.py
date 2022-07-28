@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'star_wars'
+    'main_page',
+    'movies',
+    'games',
+    'books',
+    'serials',
 ]
 
 MIDDLEWARE = [
