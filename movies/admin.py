@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie, Countries
+from .models import Movie, Countries, Composer, Director, Actor
 
 
 # Register your models here.
@@ -11,5 +11,20 @@ class MovieAdmin(admin.ModelAdmin):
 
 
 @admin.register(Countries)
-class MovieAdmin(admin.ModelAdmin):
+class CountryAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Director)
+class DirectorAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Composer)
+class ComposerAdmin(admin.ModelAdmin):
+    pass
