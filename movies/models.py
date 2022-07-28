@@ -53,7 +53,7 @@ class Movie(models.Model):
     name = models.CharField(max_length=40)
     director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True, blank=True, related_name='movies')
     composer = models.ForeignKey(Composer, on_delete=models.PROTECT, null=True, blank=True, related_name='movies')
-    actors = models.ManyToManyField(Actor, related_name='movies')
+    actors = models.ManyToManyField(Actor, related_name='movies', blank=True)
 
     rating_rotten_tomatoes = models.IntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)], blank=True,
                                                  null=True)
@@ -63,6 +63,7 @@ class Movie(models.Model):
     timing = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(0)])
     date = models.DateField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
+    slug = models.SlugField(default='', null=False, db_index=True)
 
     def __str__(self):
         return self.name

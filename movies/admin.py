@@ -8,6 +8,7 @@ from .models import Movie, Countries, Composer, Director, Actor
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['name', 'rating_rotten_tomatoes', 'rating_IMBd']
     filter_horizontal = ['countries']
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Countries)
@@ -17,14 +18,14 @@ class CountryAdmin(admin.ModelAdmin):
 
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('first_name', 'last_name')}
 
 
 @admin.register(Director)
 class DirectorAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('first_name', 'last_name')}
 
 
 @admin.register(Composer)
 class ComposerAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('first_name', 'last_name')}
