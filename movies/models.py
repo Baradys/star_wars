@@ -32,7 +32,7 @@ class Actor(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True)
     birthday = models.DateField(blank=True, null=True)
     carrier_role = models.ManyToManyField(CarrierRole, blank=True, default="No information")
-    birthplace = models.CharField(max_length=150, default="No information")
+    birthplace = models.ForeignKey(Countries, on_delete=models.PROTECT, null=True, blank=True, related_name='actors')
 
     def get_url(self):
         return reverse('actor_detail', args=[self.slug])
@@ -72,7 +72,7 @@ class Director(models.Model):
 
 
 class Movie(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=100)
     director = models.ForeignKey(Director, on_delete=models.PROTECT, null=True, blank=True, related_name='movies')
     composer = models.ForeignKey(Composer, on_delete=models.PROTECT, null=True, blank=True, related_name='movies')
     actors = models.ManyToManyField(Actor, related_name='movies', blank=True)
