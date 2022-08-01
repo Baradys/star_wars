@@ -9,7 +9,6 @@ class MovieView(ListView):
     template_name = 'movies/all_movies.html'
     model = Movie
     context_object_name = 'movies'
-    queryset = Movie.objects.order_by('name')
 
 
 class MovieDetail(DetailView):

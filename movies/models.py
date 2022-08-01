@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from next_prev import next_in_order, prev_in_order
 
 
 # Create your models here.
@@ -87,6 +88,15 @@ class Movie(models.Model):
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
     slug = models.SlugField(default='', null=False, db_index=True)
     action = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        ordering = ('action', 'date')
+
+    def get_next(self):
+        return next_in_order(self)
+
+    def get_prev(self):
+        return prev_in_order(self)
 
     def get_url(self):
         return reverse('movie_detail', args=[self.slug])

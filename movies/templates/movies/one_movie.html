@@ -5,7 +5,7 @@
 
 {% block content %}
 <ul>
-    <a href="actors">В главных ролях</a>
+    В главных ролях
     {% for actor in movie.actors.all|slice:":2" %}
         <li>
             <a href="{{actor.get_url}}">{{actor}}</a>
@@ -17,5 +17,17 @@
 <div>Страна: {% for country in movie.countries.all %} {{country}} {% endfor %}</div>
 <div>Композитор: <a href="{{movie.composer.get_url}}">{{movie.composer}}</a></div>
 <div>Режиссер: <a href="{{movie.director.get_url}}">{{movie.director}}</a></div>
-<div>Время действия: {% if movie.action < 0 %} {{ movie.action|abs }} ДБЯ {% else %} {{ movie.action }} ПБЯ {% endif %}</div>
+<div>Время действия:
+    {% if movie.action < 0 %}
+        {{ movie.action|abs }} ДБЯ
+    {% else %}
+        {{ movie.action }} ПБЯ
+    {% endif %}
+</div>
+{% if movie.get_next %}
+    <div>Сиквел: <a href="{{movie.get_next.get_url}}">{{movie.get_next}}</a></div>
+{% endif %}
+{% if movie.get_prev %}
+    <div>Приквел: <a href="{{movie.get_prev.get_url}}">{{movie.get_prev}}</a></div>
+{% endif %}
 {% endblock %}
