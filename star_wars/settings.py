@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'games',
     'books',
     'serials',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [

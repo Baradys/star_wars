@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'movies/base.html' %}
 
-</body>
-</html>
+{% block title %} {{director}} {% endblock %}
+
+{% block content %}
+<ul>
+    <a href="actors">В главных ролях</a>
+    {% for actor in movie.actors.all|slice:":2" %}
+        <li>
+            <a href="{{actor.get_url}}">{{actor}}</a>
+        </li>
+    {% endfor %}
+</ul>
+<hr>
+<div>Год производства: {{movie.year}}</div>
+<div>Страна: {% for country in movie.countries.all %} {{country}} {% endfor %}</div>
+<div>Композитор: <a href="{{movie.composer.get_url}}">{{movie.composer}}</a></div>
+<div>Режиссер: <a href="{{movie.director.get_url}}">{{movie.director}}</a></div>
+{% endblock %}
