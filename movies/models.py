@@ -86,6 +86,7 @@ class Movie(models.Model):
     date = models.DateField(blank=True, null=True)
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
     slug = models.SlugField(default='', null=False, db_index=True)
+    action = models.IntegerField(blank=True, null=True)
 
     def get_url(self):
         return reverse('movie_detail', args=[self.slug])

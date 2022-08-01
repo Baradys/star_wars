@@ -1,4 +1,5 @@
 {% extends 'movies/base.html' %}
+{% load mathfilters %}
 
 {% block title %} {{movie}} {% endblock %}
 
@@ -16,4 +17,5 @@
 <div>Страна: {% for country in movie.countries.all %} {{country}} {% endfor %}</div>
 <div>Композитор: <a href="{{movie.composer.get_url}}">{{movie.composer}}</a></div>
 <div>Режиссер: <a href="{{movie.director.get_url}}">{{movie.director}}</a></div>
+<div>Время действия: {% if movie.action < 0 %} {{ movie.action|abs }} ДБЯ {% else %} {{ movie.action }} ПБЯ {% endif %}</div>
 {% endblock %}
