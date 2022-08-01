@@ -88,6 +88,7 @@ class Movie(models.Model):
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
     slug = models.SlugField(default='', null=False, db_index=True)
     action = models.IntegerField(blank=True, null=True)
+    movie_poster = models.ImageField(null=True, blank=True, upload_to='movies/posters/')
 
     class Meta:
         ordering = ('action', 'date')

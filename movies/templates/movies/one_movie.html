@@ -30,4 +30,7 @@
 {% if movie.get_prev %}
     <div>Приквел: <a href="{{movie.get_prev.get_url}}">{{movie.get_prev}}</a></div>
 {% endif %}
+{% if movie.movie_poster %}
+    <img src="{{ movie.movie_poster.url }}" alt="" height="300" width="225">
+{% endif %}
 {% endblock %}
