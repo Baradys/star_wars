@@ -20,9 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main_page.urls')),
     path('movies/', include('movies.urls')),
     path('games/', include('games.urls')),
     path('books/', include('books.urls')),
     path('serials/', include('serials.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('main_page.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
