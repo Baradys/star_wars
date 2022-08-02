@@ -119,11 +119,12 @@ class FeedBack(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return f'Feedback by {self.user} on {self.movie}'
+        return f'Отзыв пользователя {self.user} на фильм {self.movie}: {self.name}'
 
 
 class Comment(models.Model):
-    feedback = models.ForeignKey(FeedBack, related_name='feedback_comment', on_delete=models.CASCADE, null=True, blank=True)
+    feedback = models.ForeignKey(FeedBack, related_name='feedback_comment', on_delete=models.CASCADE, null=True,
+                                 blank=True)
     user = models.ForeignKey(User, related_name='name_comment', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=150, null=True, blank=True)
     body = models.TextField(null=True, blank=True)
@@ -134,4 +135,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return f'Comment by {self.user} on {self.feedback}'
+        return f'Comment by {self.user} on {self.feedback}: {self.name}'
