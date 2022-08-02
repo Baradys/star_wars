@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -104,3 +105,33 @@ class Movie(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class FeedBack(models.Model):
+    movie = models.ForeignKey(Movie, related_name='movie_feedback', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, related_name='name_feedback', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=150)
+    body = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Feedback by {self.user} on {self.movie}'
+
+
+class Comment(models.Model):
+    feedback = models.ForeignKey(FeedBack, related_name='feedback_comment', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, related_name='name_comment', on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=150, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Comment by {self.user} on {self.feedback}'
