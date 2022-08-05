@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
-from .forms import FeedbackForm
+from .forms import FeedbackForm, CommentForm
 
-from .models import Movie, Actor, Director, Composer
+from .models import Movie, Actor, Director, Composer, FeedBack
 
 
 # Create your views here.
@@ -36,6 +36,30 @@ class MovieDetail(DetailView, FormMixin):
         feedback.user = self.request.user
         feedback.movie = self.get_object()
         feedback.save()
+        return super().form_valid(form)
+
+
+class FeedbackDetail(DetailView, FormMixin):
+    model = FeedBack
+    template_name = 'movies/one_feedback.html'
+    context_object_name = 'feedback'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return reverse_lazy('feedback_detail', kwargs={'pk': self.get_object().pk})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.feedback = self.get_object()
+        comment.save()
         return super().form_valid(form)
 
 

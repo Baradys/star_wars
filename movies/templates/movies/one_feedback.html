@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Отзыв пользователя {{feedback.user}} {% endblock %}
+
+{% block content %}
+<div>
+    <img src="{{ feedback.movie.movie_poster.url }}" alt="" height="100" width="75 ">
+    <a href="{{feedback.movie.get_url}}">{{feedback.movie.name}}</a>
+</div>
+<div>
+    <p><h1>Отзыв пользователя {{feedback.user}}:</h1></p>
+    <h2>{{feedback.name}}</h2>
+    <h3>{{feedback.body}}</h3>
+</div>
+<p>Все комментарии</p>
+{% for comment in feedback.feedback_comment.all %}
+    <div>
+        {{comment.user}}: {{comment.name}} - {{comment.body}}
+    </div>
+
+{% endfor %}
+
+<p>Добавить комментарий</p>
+<div>
+    <form action="" id="add_form" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+    </form>
+
+    <button form="add_form" type="submit">Добавить</button>
+</div>
+{% endblock %}

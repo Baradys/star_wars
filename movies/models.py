@@ -118,6 +118,9 @@ class FeedBack(models.Model):
     class Meta:
         ordering = ('created',)
 
+    def get_url(self):
+        return reverse('feedback_detail', args=[self.pk])
+
     def __str__(self):
         return f'Отзыв пользователя {self.user} на фильм {self.movie}: {self.name}'
 

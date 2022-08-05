@@ -4,6 +4,7 @@ from django.urls import path
 urlpatterns = [
     path('', views.MovieView.as_view(), name='movies'),
     path('<slug>', views.MovieDetail.as_view(), name='movie_detail'),
+    path('feedback/<pk>', views.FeedbackDetail.as_view(), name='feedback_detail'),
     path('actors/', views.ActorView.as_view()),
     path('actors/<slug>', views.ActorDetail.as_view(), name='actor_detail'),
     path('directors/', views.DirectorView.as_view()),
