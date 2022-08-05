@@ -111,7 +111,7 @@ class FeedBack(models.Model):
     movie = models.ForeignKey(Movie, related_name='movie_feedback', on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, related_name='name_feedback', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=150)
-    body = models.TextField(null=True, blank=True)
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
