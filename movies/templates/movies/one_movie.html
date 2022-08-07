@@ -48,11 +48,19 @@
 {% endif %}
 <p>Добавить отзыв</p>
 <div>
-    <form action="" id="add_form" method="post">
+    <form action="" id="feedback_form" method="post">
         {%csrf_token%}
-        {{form.as_p}}
+        {{feedback.as_p}}
     </form>
-
-    <button form="add_form" type="submit">Добавить</button>
+    <button form="feedback_form" type="submit">Добавить</button>
 </div>
+
+<div>
+    <form action="" id="rating_form" method="post">
+        {%csrf_token%}
+        {{rating}}
+    </form>
+    <button form="rating_form" type="submit">Добавить</button>
+</div>
+
 {% endblock %}

@@ -129,8 +129,8 @@ class Comment(models.Model):
     feedback = models.ForeignKey(FeedBack, related_name='feedback_comment', on_delete=models.CASCADE, null=True,
                                  blank=True)
     user = models.ForeignKey(User, related_name='name_comment', on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=150, null=True, blank=True)
-    body = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=150)
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -139,3 +139,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.user} on {self.feedback}: {self.name}'
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, related_name='rating', on_delete=models.CASCADE, null=True, blank=True)
+    movie = models.ForeignKey(Movie, related_name='movie_rating', on_delete=models.CASCADE, null=True, blank=True)
+    rating = models.SmallIntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
