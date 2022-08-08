@@ -10,13 +10,15 @@
 <body>
 <div>
     <header>
+        <a href="{% url 'main_page' %}">Go home</a>
     </header>
     <div>
         {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
+        <p>Hi <a href="{{ user.profile.get_url }}">{{user.username}}</a>!</p>
         <a href="{% url 'logout' %}">Log Out</a>
         {% else %}
         <p>You are not logged in.</p>
+        <a href="{% url 'signup' %}">Зарегистрироваться</a>
         <a href="{% url 'login' %}">Log In</a>
         {% endif %}
     </div>

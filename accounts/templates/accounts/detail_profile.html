@@ -10,7 +10,7 @@
     {% else %}
         <img src="{% static 'accounts\user.png' %}" height=100 width=100><br><br>
     {% endif %}
-        <p><strong>Username:</strong> {{ user }}</p><br><br>
+        <p><strong>Username:</strong> {{ profile.user}}</p><br><br>
     {% if profile.instagram %}
         <p><strong>Instagram:</strong> <a href="{{ profile.instagram }}">{{ profile.instagram|url_split }}</a></p><br><br>
     {% endif %}
@@ -18,4 +18,8 @@
         <p><strong>VK:</strong> <a href="{{ profile.vk }}">{{ profile.vk|url_split }}</a></p><br><br>
     {% endif %}
 </div>
+{% if user.username == profile.user.username %}
+    <a href="{% url 'profile_update' profile.slug %}">Изменить данные</a>
+    <a href="{% url 'profile_delete' profile.slug %}">Удалить профиль</a>
+{% endif %}
 {% endblock content %}

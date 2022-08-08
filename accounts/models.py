@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.urls import reverse
 from django.utils.text import slugify
 
 
@@ -21,6 +22,9 @@ class Profile(models.Model):
         self.slug = slugify(str(self.user))
         super(Profile, self).save(*args, **kwargs)
 
+    def get_url(self):
+        return reverse('profile', args=[self.slug])
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -33,6 +37,11 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-@receiver(post_delete, sender=User)
-def delete_user_profile(sender, instance, **kwargs):
-    instance.profile.delete()
+@receiver(post_delete, sender=Profile)
+def delete_user_profile(sender, instance=None, **kwargs):
+    try:
+        instance.user
+    except User.DoesNotExist:
+        pass
+    else:
+        instance.user.delete()
