@@ -30,16 +30,14 @@ class MovieDetail(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        try:
-            if self.request.POST['name']:
-                form = FeedbackForm(request.POST)
-                if form.is_valid:
-                    feedback = form.save(commit=False)
-                    feedback.user = self.request.user
-                    feedback.movie = self.get_object()
-                    feedback.save()
-
-        except KeyError:
+        if 'name' in self.request.POST:
+            form = FeedbackForm(request.POST)
+            if form.is_valid:
+                feedback = form.save(commit=False)
+                feedback.user = self.request.user
+                feedback.movie = self.get_object()
+                feedback.save()
+        elif 'rating' in self.request.POST:
             form = RatingForm(request.POST)
             if form.is_valid:
                 rating = form.save(commit=False)

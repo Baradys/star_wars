@@ -10,6 +10,10 @@ class FeedbackForm(forms.ModelForm):
     class Meta:
         model = FeedBack
         fields = ('name', 'body')
+        labels = {
+            'name': 'Название отзыва',
+            'body': 'Текст отзыва',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -22,9 +26,9 @@ class FeedbackForm(forms.ModelForm):
 class RatingForm(forms.ModelForm):
     CHOICES = (
         (1, 1),
-        (2, 1),
-        (3, 1),
-        (4, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
         (5, 5),
         (6, 6),
         (7, 7),

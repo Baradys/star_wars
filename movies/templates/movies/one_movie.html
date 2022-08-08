@@ -35,32 +35,50 @@
 {% endif %}
 
 {% if movie.movie_feedback.all %}
-    <p>Все отзывы</p>
-    {% for feedback in movie.movie_feedback.all %}
-        <div>
-            {{feedback.user}}: <a href="{{feedback.get_url}}">{{feedback.name}}</a> - {{feedback.body}}
-        </div>
+<p>Все отзывы</p>
+{% for feedback in movie.movie_feedback.all %}
+<div>
+    {{feedback.user}}: <a href="{{feedback.get_url}}">{{feedback.name}}</a> - {{feedback.body}}
+</div>
 
-    {% endfor %}
+{% endfor %}
 {% else %}
 <p>Пока что нет отзывов</p>
 
 {% endif %}
-<p>Добавить отзыв</p>
 <div>
+    <p>Добавить отзыв</p>
     <form action="" id="feedback_form" method="post">
         {%csrf_token%}
-        {{feedback.as_p}}
+        {% for field in feedback %}
+        <div class="form-style">
+            {{field.label_tag}}
+            {{field}}
+        </div>
+        {% endfor %}
+        <button form="feedback_form" type="submit">Добавить</button>
     </form>
-    <button form="feedback_form" type="submit">Добавить</button>
 </div>
 
 <div>
+    <p>Оценить</p>
     <form action="" id="rating_form" method="post">
         {%csrf_token%}
-        {{rating}}
+        {% for field in rating %}
+        <div class="form-style">
+            {{field.label_tag}}
+            {{field}}
+        </div>
+        {% endfor %}
+        <button form="rating_form" type="submit">Добавить</button>
     </form>
-    <button form="rating_form" type="submit">Добавить</button>
+</div>
+
+<div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{movie.video_link}}" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
 </div>
 
 {% endblock %}
