@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load account_filters %}
+{% block title %} Профиль {% endblock title %}
+{% block content %}
+</div>
+<div class="card-body">
+    {% if user.profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" height=100 width=100><br><br>
+    {% else %}
+        <img src="{% static 'accounts\user.png' %}" height=100 width=100><br><br>
+    {% endif %}
+        <p><strong>Username:</strong> {{ user }}</p><br><br>
+    {% if profile.instagram %}
+        <p><strong>Instagram:</strong> <a href="{{ profile.instagram }}">{{ profile.instagram|url_split }}</a></p><br><br>
+    {% endif %}
+    {% if profile.vk %}
+        <p><strong>VK:</strong> <a href="{{ profile.vk }}">{{ profile.vk|url_split }}</a></p><br><br>
+    {% endif %}
+</div>
+{% endblock content %}
