@@ -7,4 +7,5 @@ from django import forms
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('vk', 'instagram')
+        exclude = ('slug', 'user')
+

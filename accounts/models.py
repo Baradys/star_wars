@@ -18,7 +18,7 @@ class Profile(models.Model):
     ]
 
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="accounts/profile/")
+    profile_pic = models.ImageField(null=True, blank=True, upload_to="accounts/profile")
     vk = models.CharField(max_length=50, null=True, blank=True)
     instagram = models.CharField(max_length=50, null=True, blank=True)
     country = models.ForeignKey(Countries, on_delete=models.PROTECT, null=True, blank=True, related_name='user_country')

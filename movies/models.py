@@ -91,6 +91,7 @@ class Movie(models.Model):
     action = models.IntegerField(blank=True, null=True)
     movie_poster = models.ImageField(null=True, blank=True, upload_to='movies/posters/')
     video_link = models.CharField(null=True, blank=True, max_length=150)
+    price = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('action', 'date')
