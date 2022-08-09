@@ -1,8 +1,11 @@
 from django.conf import settings
+
+from games.models import Game
 from movies.models import Movie
+from itertools import chain
 
 
-class Cart(object):
+class Cart:
 
     def __init__(self, request):
         """
@@ -21,11 +24,11 @@ class Cart(object):
         """
         product_ids = self.cart.keys()
         # получаем товары и добавляем их в корзину
-        products = Movie.objects.filter(id__in=product_ids)
+        products = list(chain(Movie.objects.filter(slug__in=product_ids), Game.objects.filter(slug__in=product_ids)))
 
         cart = self.cart.copy()
         for product in products:
-            cart[str(product.id)]['product'] = product
+            cart[str(product.slug)]['product'] = product
 
         for item in cart.values():
             item['price'] = int(item['price'])
@@ -42,14 +45,14 @@ class Cart(object):
         """
         Добавляем товар в корзину или обновляем его количество.
         """
-        product_id = str(product.id)
-        if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0,
-                                     'price': str(product.price)}
+        product_slug = str(product.slug)
+        if product_slug not in self.cart:
+            self.cart[product_slug] = {'quantity': 0,
+                                       'price': str(product.price)}
         if update_quantity:
-            self.cart[product_id]['quantity'] = quantity
+            self.cart[product_slug]['quantity'] = quantity
         else:
-            self.cart[product_id]['quantity'] += quantity
+            self.cart[product_slug]['quantity'] += quantity
         self.save()
 
     def save(self):
@@ -60,9 +63,9 @@ class Cart(object):
         """
         Удаляем товар
         """
-        product_id = str(product.id)
-        if product_id in self.cart:
-            del self.cart[product_id]
+        product_slug = str(product.slug)
+        if product_slug in self.cart:
+            del self.cart[product_slug]
             self.save()
 
     def get_total_price(self):

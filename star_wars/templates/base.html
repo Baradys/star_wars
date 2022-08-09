@@ -2,9 +2,6 @@
 {% load static %}
 <html>
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400"
-          rel="stylesheet">
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
@@ -23,17 +20,16 @@
         {% endif %}
     </div>
     <div>
-        {% with total_items=cart|length %}
-        {% if cart|length > 0 %}
+        {% with total_items=cart_context|length %}
+        {% if cart_context|length > 0 %}
         В корзине:
         <a href="{% url 'cart:cart_detail' %}">
-            {{total_items}} шт, {{cart.get_total_price}} руб
+            {{total_items}} шт, {{cart_context.get_total_price}} руб
         </a>
         {% else %}
         Корзина пустая
         {% endif %}
         {% endwith %}
-
     </div>
     <hr>
     {% block content %}

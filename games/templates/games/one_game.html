@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} {{movie}} {% endblock %}
+
+
+{% block content %}
+<div>Название: {{game}}</div>
+<div>
+    <p>{{game.price}}</p>
+    <form action="{% url 'cart:cart_add' game.slug %}" method="post">
+        {{cart}}
+        {%csrf_token%}
+        <input type="submit" value="В корзину">
+    </form>
+</div>
+
+{% endblock %}

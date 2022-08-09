@@ -85,7 +85,7 @@
 </div>
 <div>
     <p>{{movie.price}}</p>
-    <form action="{% url 'cart:cart_add' movie.id %}" method="post">
+    <form action="{% url 'cart:cart_add' movie.slug %}" method="post">
         {{cart}}
         {%csrf_token%}
         <input type="submit" value="В корзину">
