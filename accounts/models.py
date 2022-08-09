@@ -5,14 +5,29 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.text import slugify
 
-
 # Create your models here.
+from movies.models import Countries
+
 
 class Profile(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDERS = [
+        (MALE, 'Мужской'),
+        (FEMALE, 'Женский'),
+    ]
+
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     profile_pic = models.ImageField(null=True, blank=True, upload_to="accounts/profile/")
     vk = models.CharField(max_length=50, null=True, blank=True)
     instagram = models.CharField(max_length=50, null=True, blank=True)
+    country = models.ForeignKey(Countries, on_delete=models.PROTECT, null=True, blank=True, related_name='user_country')
+    city = models.CharField(max_length=100, null=True, blank=True)
+    birthday = models.DateField(blank=True, null=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDERS, default=MALE)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
     slug = models.SlugField(null=False, db_index=True, unique=True)
 
     def __str__(self):

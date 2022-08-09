@@ -3,23 +3,58 @@
 {% load account_filters %}
 {% block title %} Профиль {% endblock title %}
 {% block content %}
-</div>
 <div class="card-body">
-    {% if user.profile.profile_pic %}
-        <img src="{{ profile.profile_pic.url }}" height=100 width=100><br><br>
+    {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" height=100 width=100>
     {% else %}
-        <img src="{% static 'accounts\user.png' %}" height=100 width=100><br><br>
-    {% endif %}
-        <p><strong>Username:</strong> {{ profile.user}}</p><br><br>
-    {% if profile.instagram %}
-        <p><strong>Instagram:</strong> <a href="{{ profile.instagram }}">{{ profile.instagram|url_split }}</a></p><br><br>
-    {% endif %}
-    {% if profile.vk %}
-        <p><strong>VK:</strong> <a href="{{ profile.vk }}">{{ profile.vk|url_split }}</a></p><br><br>
+        <img src="{% static 'accounts\user.png' %}" height=100 width=100>
     {% endif %}
 </div>
-{% if user.username == profile.user.username %}
-    <a href="{% url 'profile_update' profile.slug %}">Изменить данные</a>
-    <a href="{% url 'profile_delete' profile.slug %}">Удалить профиль</a>
-{% endif %}
+<div>
+    <div>
+        <strong>{{ profile.user}}</strong>
+    </div>
+    <span>
+        {% if profile.first_name %}
+            {{ profile.first_name }}
+        {% endif %}
+        {% if profile.last_name %}
+            {{ profile.last_name }}
+        {% endif %}
+        {% if profile.country %}
+            {{ profile.country }}
+        {% endif %}
+        {% if profile.city %}
+            {{ profile.city }}
+        {% endif %}
+        {{profile.gender}}
+    </span>
+    <div>
+        {% if profile.birthday %}
+            {{profile.birthday}}
+        {% endif %}
+    </div>
+    <div>
+        {% if profile.email %}
+            {{profile.email}}
+        {% endif %}
+    </div>
+    <div>
+    {% if profile.instagram %}
+        <p><strong>Instagram:</strong> <a href="{{ profile.instagram }}">{{ profile.instagram|url_split }}</a></p>
+    {% endif %}
+    </div>
+    <div>
+    {% if profile.vk %}
+        <p><strong>VK:</strong> <a href="{{ profile.vk }}">{{ profile.vk|url_split }}</a></p>
+    {% endif %}
+    </div>
+</div>
+
+<div>
+    {% if user.username == profile.user.username %}
+        <a href="{% url 'profile_update' profile.slug %}">Изменить данные</a>
+        <a href="{% url 'profile_delete' profile.slug %}">Удалить профиль</a>
+    {% endif %}
+</div>
 {% endblock content %}

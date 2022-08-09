@@ -46,34 +46,37 @@
 <p>Пока что нет отзывов</p>
 
 {% endif %}
-<div>
-    <p>Добавить отзыв</p>
-    <form action="" id="feedback_form" method="post">
-        {%csrf_token%}
-        {% for field in feedback %}
-        <div class="form-style">
-            {{field.label_tag}}
-            {{field}}
-        </div>
-        {% endfor %}
-        <button form="feedback_form" type="submit">Добавить</button>
-    </form>
-</div>
+{% if user.is_authenticated %}
+    <div>
+        <p>Добавить отзыв</p>
+        <form action="" id="feedback_form" method="post">
+            {%csrf_token%}
+            {% for field in feedback %}
+            <div class="form-style">
+                {{field.label_tag}}
+                {{field}}
+            </div>
+            {% endfor %}
+            <button form="feedback_form" type="submit">Добавить</button>
+        </form>
+    </div>
 
-<div>
-    <p>Оценить</p>
-    <form action="" id="rating_form" method="post">
-        {%csrf_token%}
-        {% for field in rating %}
-        <div class="form-style">
-            {{field.label_tag}}
-            {{field}}
-        </div>
-        {% endfor %}
-        <button form="rating_form" type="submit">Добавить</button>
-    </form>
-</div>
-
+    <div>
+        <p>Оценить</p>
+        <form action="" id="rating_form" method="post">
+            {%csrf_token%}
+            {% for field in rating %}
+            <div class="form-style">
+                {{field.label_tag}}
+                {{field}}
+            </div>
+            {% endfor %}
+            <button form="rating_form" type="submit">Добавить</button>
+        </form>
+    </div>
+{% else %}
+    <p>Чтобы добавить отзыв и поставить оценку, Вы должны быть <a href="{% url 'login' %}">авторизованы</a></p>
+{% endif %}
 <div>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{movie.video_link}}" title="YouTube video player"
             frameborder="0"
