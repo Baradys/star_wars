@@ -22,6 +22,19 @@
         <a href="{% url 'login' %}">Log In</a>
         {% endif %}
     </div>
+    <div>
+        {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+        В корзине:
+        <a href="{% url 'cart:cart_detail' %}">
+            {{total_items}} шт, {{cart.get_total_price}} руб
+        </a>
+        {% else %}
+        Корзина пустая
+        {% endif %}
+        {% endwith %}
+
+    </div>
     <hr>
     {% block content %}
     {% endblock content %}

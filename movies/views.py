@@ -3,6 +3,8 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin, FormView
+
+from cart.forms import CartAddProductForm
 from .forms import FeedbackForm, CommentForm, RatingForm
 from django.http.response import HttpResponseRedirect
 from django.db.utils import IntegrityError
@@ -27,6 +29,7 @@ class MovieDetail(DetailView):
         context['rating'] = RatingForm(self.request.POST)
         context['feedback'] = FeedbackForm(self.request.POST)
         context['forms'] = [(FeedbackForm, 'feedback', 'Добавить отзыв'), (RatingForm, 'rating', 'Оценить')]
+        context['cart'] = CartAddProductForm()
         return context
 
     def post(self, request, *args, **kwargs):

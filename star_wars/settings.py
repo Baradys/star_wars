@@ -17,6 +17,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/my-media/'
 
+CART_SESSION_ID = 'cart'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -45,7 +47,9 @@ INSTALLED_APPS = [
     'books',
     'serials',
     'mathfilters',
-    'accounts'
+    'accounts',
+    'cart'
+
 
 ]
 
@@ -72,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
