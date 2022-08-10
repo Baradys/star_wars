@@ -9,14 +9,9 @@ from movies.models import Countries, Movie
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     email = models.EmailField()
-    postal_code = models.CharField(max_length=20)
-    country = models.ForeignKey(Countries, on_delete=models.PROTECT)
-    city = models.CharField(max_length=100)
-    address = models.CharField(max_length=250)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-    digital = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-created',)
@@ -37,7 +32,7 @@ class OrderItem(models.Model):
     )
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
-    product = models.CharField(max_length=1, choices=PRODUCT_CHOICES)
+    product = models.CharField(max_length=1, choices=PRODUCT_CHOICES, editable=False)
     game = models.ForeignKey(Game, null=True, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, null=True, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
