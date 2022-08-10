@@ -10,7 +10,6 @@ from .forms import CartAddProductForm
 @require_POST
 def cart_add(request, product_slug):
     cart = Cart(request)
-    print(request)
     if str(request).split('/')[-2] in list(Movie.objects.all().values_list('slug', flat=True)):
         product = get_object_or_404(Movie, slug=product_slug)
     else:
