@@ -12,8 +12,8 @@ class MovieAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
     def poster_show(self, poster):
-        if poster.movie_poster:
-            return mark_safe(f"<img src='{poster.movie_poster.url}' width='60'")
+        if poster.poster:
+            return mark_safe(f"<img src='{poster.poster.url}' width='60'")
         return None
 
     poster_show.__name__ = 'poster'

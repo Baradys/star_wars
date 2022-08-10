@@ -89,7 +89,7 @@ class Movie(models.Model):
     year = models.IntegerField(blank=True, null=True, validators=[MinValueValidator(1960), MaxValueValidator(2030)])
     slug = models.SlugField(default='', null=False, db_index=True)
     action = models.IntegerField(blank=True, null=True)
-    movie_poster = models.ImageField(null=True, blank=True, upload_to='movies/posters/')
+    poster = models.ImageField(null=True, blank=True, upload_to='movies/posters/')
     video_link = models.CharField(null=True, blank=True, max_length=150)
     price = models.IntegerField(default=0)
 

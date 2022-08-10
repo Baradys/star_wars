@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% load mathfilters %}
+{% load static %}
 
 {% block title %} {{movie}} {% endblock %}
 
+{% block css_additional %}
+    <link rel="stylesheet" href="{% static 'movies/css/forms.css' %}">
+{% endblock %}
+
 {% block content %}
 <ul>
-    В главных ролях
-    {% for actor in movie.actors.all|slice:":2" %}
+    <h2>В главных ролях</h2>
+    {% for actor in movie.actors.all|slice:":5" %}
     <li>
         <a href="{{actor.get_url}}">{{actor}}</a>
     </li>
@@ -30,8 +35,8 @@
 {% if movie.get_prev %}
 <div>Приквел: <a href="{{movie.get_prev.get_url}}">{{movie.get_prev}}</a></div>
 {% endif %}
-{% if movie.movie_poster %}
-<img src="{{ movie.movie_poster.url }}" alt="" height="300" width="225">
+{% if movie.poster %}
+<img src="{{ movie.poster.url }}" alt="" height="300" width="225">
 {% endif %}
 
 {% if movie.movie_feedback.all %}
