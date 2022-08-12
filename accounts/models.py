@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.text import slugify
 
 # Create your models here.
@@ -60,3 +61,31 @@ def delete_user_profile(sender, instance=None, **kwargs):
         pass
     else:
         instance.user.delete()
+
+
+class Chat(models.Model):
+    DIALOG = 'D'
+    CHAT = 'C'
+    CHAT_TYPE_CHOICES = (
+        (DIALOG, 'Dialog'),
+        (CHAT, 'Chat')
+    )
+    type_of_chat = models.CharField(max_length=1, choices=CHAT_TYPE_CHOICES, default=DIALOG)
+    members = models.ManyToManyField(User)
+
+    def get_url(self):
+        return reverse('messages', args=[self.pk])
+
+
+class Message(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    publication_date = models.DateTimeField(default=timezone.now)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['publication_date']
+
+    def __str__(self):
+        return self.message
