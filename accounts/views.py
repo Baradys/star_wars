@@ -49,7 +49,8 @@ class DialogsView(TemplateView):
 
 
 class MessagesView(View):
-    def get(self, request, pk):
+    @staticmethod
+    def get(request, pk):
         try:
             chat = Chat.objects.get(id=pk)
             if request.user in chat.members.all():
@@ -59,17 +60,14 @@ class MessagesView(View):
         except Chat.DoesNotExist:
             chat = None
 
-        return render(
-            request,
-            'accounts/messages.html',
-            {
-                'user_profile': request.user,
-                'chat': chat,
-                'form': MessageForm()
-            }
-        )
+        return render(request, 'accounts/messages.html', {
+            'user_profile': request.user,
+            'chat': chat,
+            'form': MessageForm()
+        })
 
-    def post(self, request, pk):
+    @staticmethod
+    def post(request, pk):
         form = MessageForm(data=request.POST)
         if form.is_valid():
             message = form.save(commit=False)
@@ -80,7 +78,8 @@ class MessagesView(View):
 
 
 class CreateDialogView(View):
-    def get(self, request, pk):
+    @staticmethod
+    def get(request, pk):
         chats = Chat.objects.filter(members__in=[request.user.id, pk], type_of_chat=Chat.DIALOG).annotate(
             c=Count('members')).filter(c=2)
         if not chats and int(pk) != request.user.id:

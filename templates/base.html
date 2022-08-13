@@ -1,8 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    {% block css_additional %} {% endblock %}
+    {% block css_additional %}
+        <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    {% endblock %}
 </head>
 <body>
 <div>
