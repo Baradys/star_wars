@@ -1,9 +1,13 @@
+{% extends 'base.html' %}
+{% load get_companion %}
+{% block title %} {% get_companion user_profile chat %} {% endblock %}
+{% block content %}
+
 {% if not chat %}
     <div class="panel panel-body">
          <p>Невозможно начать беседу. Не найден пользователь или вы не имеете доступа к данной беседе.</p>
     </div>
 {% else %}
-    {% load get_companion %}
     {% if chat %}
         <div id="messages" class="panel">
             <div id="innerMessages">
@@ -22,3 +26,4 @@
         </form>
     </div>
 {% endif %}
+{% endblock %}
