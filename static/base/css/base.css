@@ -1,0 +1,21 @@
+header {
+    width: 100%;
+    background: #aacb96;
+
+}
+.header-menu{
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    margin: 0;
+}
+
+.navbar__menu-item{
+    display: flex;
+    margin: 0;
+}
+
+.navbar__menu-item:hover{
+    background: gray
+}

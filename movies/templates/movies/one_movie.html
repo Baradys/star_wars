@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% load mathfilters %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %} {{movie}} {% endblock %}
-
-{% block css_additional %}
-    <link rel="stylesheet" href="{% static 'movies/css/forms.css' %}">
-{% endblock %}
 
 {% block content %}
 <ul>
@@ -56,12 +53,7 @@
         <p>Добавить отзыв</p>
         <form action="" id="feedback_form" method="post">
             {%csrf_token%}
-            {% for field in feedback %}
-            <div class="form-style">
-                {{field.label_tag}}
-                {{field}}
-            </div>
-            {% endfor %}
+            {{ feedback|crispy }}
             <button form="feedback_form" type="submit">Добавить</button>
         </form>
     </div>
@@ -70,12 +62,7 @@
         <p>Оценить</p>
         <form action="" id="rating_form" method="post">
             {%csrf_token%}
-            {% for field in rating %}
-            <div class="form-style">
-                {{field.label_tag}}
-                {{field}}
-            </div>
-            {% endfor %}
+            {{ rating|crispy }}
             <button form="rating_form" type="submit">Добавить</button>
         </form>
     </div>
@@ -91,8 +78,8 @@
 <div>
     <p>{{movie.price}}</p>
     <form action="{% url 'cart:cart_add' movie.slug %}" method="post">
-        {{cart}}
         {%csrf_token%}
+        {{cart|crispy}}
         <input type="submit" value="В корзину">
     </form>
 

@@ -1,18 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Страница профиля{% endblock %}
 {% block content %}
     <h2>Измените данные</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {% for field in form %}
-            <div class="form-style">
-
-                {{field.label_tag}}
-                {{field.errors}}
-                {{field}}
-            </div>
-        {% endfor %}
-        <button type="submit">Отправить</button>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Сохранить</button>
     </form>
 
 {% endblock %}
