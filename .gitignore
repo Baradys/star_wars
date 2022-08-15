@@ -4,6 +4,7 @@
 *.pyc
 __pycache__
 media
+sql_utf.json
 
 # Backup files #
 *.bak
