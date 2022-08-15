@@ -24,6 +24,9 @@ class Order(models.Model):
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
 
+    def get_url(self):
+        return
+
 
 class OrderItem(models.Model):
     PRODUCT_CHOICES = (

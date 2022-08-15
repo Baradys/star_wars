@@ -57,6 +57,7 @@
         <hr>
         <a href="{% url 'profile_update' profile.slug %}">Изменить данные</a>
         <a href="{% url 'profile_delete' profile.slug %}">Удалить профиль</a>
+        <a href="/orders/">Ваши заказы</a>
     {% else %}
     <a href="{% url 'create_dialog' profile.user.id %}">Написать сообщение</a>
     {% endif %}

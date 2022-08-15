@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} История заказов {% endblock title %}
+{% block content %}
+<form action="" method="get">
+        {{ filter.form|crispy }}
+        <input type="submit" />
+    </form>
+<ul>
+    {% for order in orders %}
+        {% if user.is_superuser %}
+            <li><a href="">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
+        {% elif user.username == order.user.username %}
+            <li><a href="">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock content %}

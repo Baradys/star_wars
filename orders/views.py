@@ -1,10 +1,26 @@
 from django.shortcuts import render
+from django.views.generic import ListView
+from django_filters.views import FilterView
 
 from games.models import Game
 from movies.models import Movie
-from .models import OrderItem
+from .filters import OrderFilter
+from .models import OrderItem, Order
 from .forms import OrderCreateForm
 from cart.cart import Cart
+
+
+class OrderView(FilterView):
+    template_name = 'orders/order_history.html'
+    model = Order
+    context_object_name = 'orders'
+    paginate_by = 5
+    filterset_class = OrderFilter
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderView, self).get_context_data(**kwargs)
+        context['filter'] = OrderFilter(queryset=Order.objects.all())
+        return context
 
 
 def order_create(request):
