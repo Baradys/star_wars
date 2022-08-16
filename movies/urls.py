@@ -1,6 +1,7 @@
 from . import views
 from django.urls import path
 
+
 urlpatterns = [
     path('', views.MovieView.as_view(), name='movies'),
     path('<slug>', views.MovieDetail.as_view(), name='movie_detail'),
@@ -11,5 +12,7 @@ urlpatterns = [
     path('directors/<slug>', views.DirectorDetail.as_view(), name='director_detail'),
     path('composers/', views.ComposerView.as_view()),
     path('composers/<slug>', views.ComposerDetail.as_view(), name='composer_detail'),
+    path('search/', views.SearchView.as_view(), name='search')
+
 
 ]
