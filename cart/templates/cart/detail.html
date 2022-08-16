@@ -55,6 +55,6 @@
     </tbody>
 </table>
 {% if cart.get_total_price %}
-<a href="{% url 'orders:order_create' %}" class="button">Checkout</a>
+<a href="{% url 'order_create' %}" class="button">Checkout</a>
 {% endif %}
 {% endblock %}
