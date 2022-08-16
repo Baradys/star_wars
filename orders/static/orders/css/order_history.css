@@ -1,0 +1,12 @@
+.order-items{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+}
+
+.order-item{
+    display: flex;
+    justify-content: flex-start;
+}
+

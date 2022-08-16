@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% block css_additional %}
+<link rel="stylesheet" href="{% static 'orders/css/order_history.css' %}">
+{% endblock %}
 {% block title %} История заказов {% endblock title %}
 {% block content %}
-<form action="" method="get">
+<div class="row">
+    <form class="col-2 order-form" action="" method="get">
         {{ filter.form|crispy }}
-        <input type="submit" />
+        <input type="submit"/>
     </form>
-<ul>
-    {% for order in orders %}
+    <ul class="col-10 order-items">
+        {% for order in orders %}
         {% if user.is_superuser %}
-            <li><a href="">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
+        <li class="order-item"><a href="{{order.get_url}}">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
         {% elif user.username == order.user.username %}
-            <li><a href="">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
+        <li class="order-item"><a href="{{order.get_url}}">{{order}}</a> {{order.created|date:"d.m.Y"}} {{order.get_total_cost}} ₽</li>
         {% endif %}
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock content %}

@@ -2,6 +2,7 @@
 {% block title %} Все фильмы {% endblock %}
 
 {% block content %}
+<a href="{% url 'search' %}">Поиск</a>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}

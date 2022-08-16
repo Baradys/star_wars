@@ -1,5 +1,7 @@
+import re
+
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import DetailView
 from django_filters.views import FilterView
 
 from games.models import Game
@@ -10,7 +12,7 @@ from .forms import OrderCreateForm
 from cart.cart import Cart
 
 
-class OrderView(FilterView):
+class OrderHistoryView(FilterView):
     template_name = 'orders/order_history.html'
     model = Order
     context_object_name = 'orders'
@@ -18,8 +20,20 @@ class OrderView(FilterView):
     filterset_class = OrderFilter
 
     def get_context_data(self, **kwargs):
-        context = super(OrderView, self).get_context_data(**kwargs)
+        context = super(OrderHistoryView, self).get_context_data(**kwargs)
         context['filter'] = OrderFilter(queryset=Order.objects.all())
+        return context
+
+
+class OrderDetailView(DetailView):
+    template_name = 'orders/order_detail.html'
+    model = Order
+    context_object_name = 'order'
+
+    def get_context_data(self, **kwargs):
+        order_id = re.search(r'\d+', str(self.request)).group()
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context['order_items'] = OrderItem.objects.filter(order=order_id)
         return context
 
 

@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-fpw4!eizg5uqqzacwa&#9^4_(p*og_^nn3&sq-*_@xh=hkdz00
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'accounts',
     'cart',
     'orders',
-    'crispy_forms'
+    'crispy_forms',
+    'ajax_select',
 
 ]
 
@@ -72,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates'
+            os.path.join(BASE_DIR, 'templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,7 +138,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Заказ №{{order.id}}{% endblock title %}
+{% block content %}
+<div class="order-info">
+    <p>Заказ пользователя: <a href="{% url 'profile' order.user.username %}">{{order.user}}</a></p>
+    <ul>
+        {% for item in order_items %}
+            {% if item.product == 'M' %}
+                <li><a href="{{item.movie.get_url}}">{{item.movie}}:</a> {{item.quantity}}</li>
+            {% elif item.product == 'G' %}
+                <li><a href="{{item.game.get_url}}">{{item.game}}:</a> {{item.quantity}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <p>Дата заказа: {{order.created|date:"d M, Y"}}</p>
+    <p>Стоимость заказа: {{order.get_total_cost}} Р</p>
+</div>
+{% endblock content %}

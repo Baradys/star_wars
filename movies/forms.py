@@ -1,9 +1,13 @@
 from django import forms
 from django.forms import Textarea, ChoiceField
 
-from .models import FeedBack, Comment, Rating
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
+from crispy_forms.bootstrap import InlineCheckboxes
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout
+
+from ajax_select.fields import AutoCompleteSelectField
+
+from .models import FeedBack, Comment, Rating, Movie, Countries
 
 
 class FeedbackForm(forms.ModelForm):
@@ -59,3 +63,39 @@ class CommentForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
         self.fields['name'].widget = Textarea(attrs={'rows': 1})
         self.fields['body'].widget = Textarea(attrs={'rows': 5})
+
+
+class SearchForm(forms.Form):
+    COUNTRY_CHOICES = (
+        ((country['id'], country['name']) for country in Countries.objects.all().values('id','name'))
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['countries'].label = 'Страна'
+        # self.fields['rating'].label = 'Рейтинг'
+        self.fields['release_date_from'].label = 'Дата релиза (с)'
+        self.fields['release_date_to'].label = 'Дата релиза (по)'
+
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-check form-check-inline'
+        self.helper.layout = Layout(InlineCheckboxes('countries'))
+
+    movie = AutoCompleteSelectField('movie', required=False,
+                                    help_text='Начните набор текста, чтобы увидеть результат')
+    countries = forms.MultipleChoiceField(choices=COUNTRY_CHOICES,
+                                          widget=forms.CheckboxSelectMultiple,
+                                          required=False)
+    release_date_from = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        required=False
+    )
+
+    release_date_to = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'}
+        ),
+        required=False
+    )

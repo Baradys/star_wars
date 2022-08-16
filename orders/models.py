@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 from games.models import Game
 from movies.models import Countries, Movie
 
@@ -25,7 +27,7 @@ class Order(models.Model):
         return sum(item.get_cost() for item in self.items.all())
 
     def get_url(self):
-        return
+        return reverse('order_detail', args=[self.pk])
 
 
 class OrderItem(models.Model):

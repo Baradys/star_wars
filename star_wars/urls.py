@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from ajax_select import urls as ajax_select_urls
+
 
 urlpatterns = [
+    path('ajax_select/', include(ajax_select_urls)),
     path('admin/', admin.site.urls),
     path('movies/', include('movies.urls')),
     path('games/', include('games.urls')),
@@ -27,6 +30,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
     path('cart/', include('cart.urls')),
-    path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
+    path('orders/', include('orders.urls')),
     path('', include('main_page.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'star_wars.views.handler404'
+

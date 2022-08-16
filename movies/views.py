@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin, FormView
+from django.views.generic.edit import FormMixin
+from django.db.models import Q
 
 from cart.forms import CartAddProductForm
-from .forms import FeedbackForm, CommentForm, RatingForm
+from .forms import FeedbackForm, CommentForm, RatingForm, SearchForm
 from django.http.response import HttpResponseRedirect
-from django.db.utils import IntegrityError
 from .models import Movie, Actor, Director, Composer, FeedBack
 
 
@@ -109,3 +109,34 @@ class ComposerDetail(DetailView):
     template_name = 'movies/one_composer.html'
     model = Composer
     context_object_name = 'composer'
+
+
+class SearchView(View):
+    def get(self, request, *args, **kwargs):
+        form = SearchForm(request.GET)
+        result = None
+        if form.is_valid():
+            q = Q()
+            movie = form.cleaned_data['movie']
+            if movie:
+                q.add(Q(**{'name': movie}), Q.AND)
+            countries = form.cleaned_data['countries']
+            if countries:
+                if len(countries) == 1:
+                    q.add(Q(**{'countries__id': countries[0]}), Q.AND)
+                else:
+                    q.add(Q(**{'countries__in': countries}), Q.AND)
+            release_date_from = form.cleaned_data['release_date_from']
+            if release_date_from:
+                q.add(Q(**{'date__gte': release_date_from}), Q.AND)
+            release_date_to = form.cleaned_data['release_date_to']
+            if release_date_to:
+                q.add(Q(**{'date__lte': release_date_to}), Q.AND)
+            if q:
+                result = Movie.objects.filter(q)
+            else:
+                result = Movie.objects.none()
+        context = {'form': form}
+        if result and result.exists():
+            context.update({'results': result})
+        return render(request, 'movies/search.html', context)
