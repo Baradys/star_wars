@@ -67,7 +67,7 @@ class CommentForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     COUNTRY_CHOICES = (
-        ((country['id'], country['name']) for country in Countries.objects.all().values('id','name'))
+        ((country['id'], country['name']) for country in Countries.objects.all().values('id', 'name'))
     )
 
     def __init__(self, *args, **kwargs):
@@ -99,3 +99,7 @@ class SearchForm(forms.Form):
         ),
         required=False
     )
+
+
+class MovieFilterForm(forms.Form):
+    canon = forms.BooleanField(required=False)

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
@@ -6,18 +7,28 @@ from django.views.generic.edit import FormMixin
 from django.db.models import Q
 
 from cart.forms import CartAddProductForm
-from .forms import FeedbackForm, CommentForm, RatingForm, SearchForm
+from .forms import FeedbackForm, CommentForm, RatingForm, SearchForm, MovieFilterForm
 from django.http.response import HttpResponseRedirect
 from .models import Movie, Actor, Director, Composer, FeedBack
 
 
 # Create your views here.
 
-class MovieView(ListView):
+class MovieView(View):
     template_name = 'movies/all_movies.html'
     model = Movie
-    context_object_name = 'movies'
-    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        movies = Movie.objects.all()
+        form = MovieFilterForm(self.request.GET)
+        if form.is_valid():
+            if form.cleaned_data['canon']:
+                movies = movies.filter(canon=form.cleaned_data['canon'])
+        paginator = Paginator(movies, 3)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = {'movies': page_obj, 'form': form}
+        return render(self.request, 'movies/all_movies.html', context)
 
 
 class MovieDetail(DetailView):

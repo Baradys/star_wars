@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'orders',
     'crispy_forms',
     'ajax_select',
+    'spurl',
 
 ]
 
