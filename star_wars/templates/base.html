@@ -3,40 +3,88 @@
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="{% static 'main_page/favicon.ico' %}">
     {% block css_additional %}
     {% endblock %}
 </head>
 <body>
-<header>
-    <ul class="header-menu">
-        <li class="navbar__menu-item"><a href="{% url 'main_page' %}">Go home</a></li>
-        {% if user.is_authenticated %}
-        <li class="navbar__menu-item"><a href="{{ user.profile.get_url }}">Hello {{user.username}}!</a></li>
-        <li class="navbar__menu-item"><a href="{% url 'logout' %}">Log Out</a></li>
-        {% else %}
-        You are not logged in.
-        <li class="navbar__menu-item"><a href="{% url 'signup' %}">Зарегистрироваться</a></li>
-        <li class="navbar__menu-item"><a href="{% url 'login' %}">Log In</a></li>
-        {% endif %}
-
-        <div>
-            {% with total_items=cart_context|length %}
-            {% if cart_context|length > 0 %}
-            В корзине:
-            <a href="{% url 'cart:cart_detail' %}">
-                {{total_items}} шт, {{cart_context.get_total_price}} руб
-            </a>
-            {% else %}
-            Корзина пустая
-            {% endif %}
-            {% endwith %}
+<div class="global-header">
+    <div class="row header-top">
+        <div class="container-fluid">
+            <div class="profile-nav">
+                <div class="col-md-3 left-profile-nav">
+                    <a href="">Новости</a>
+                    <a href="">Поиск</a>
+                    <a href="">Избранное</a>
+                    <a href="">Акции</a>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-3 right-profile-nav">
+                    {% if user.is_authenticated %}
+                    <a href="{{ user.profile.get_url }}">{{user.username|title}}</a>
+                    <div class="cart">
+                        {% with total_items=cart_context|length %}
+                        {% if cart_context|length > 0 %}
+                        В корзине:
+                        <a href="{% url 'cart:cart_detail' %}">
+                            {{total_items}} шт, {{cart_context.get_total_price}} руб
+                        </a>
+                        {% else %}
+                        Корзина пустая
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                    <a href="{% url 'logout' %}">Выход</a>
+                    {% else %}
+                    <a href="{% url 'login' %}">Войти</a>
+                    <a href="{% url 'signup' %}">Зарегистрироваться</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </ul>
-    <hr>
-</header>
+    </div>
+    <div class="container head">
+        <header>
+            <div class="row header-body">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href="{% url 'main_page' %}"></a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <nav id="main-nav" class="main-nav mobile-controls-section">
+                        <ul class="header-menu">
+                            <li class="item item-universe"><a href="" class="root-item-link"><span
+                                    class="icon ic_movies"><img src="{% static 'main_page/universe.png' %}" height=32
+                                                                width=32>  </span>Вселенная</a></li>
+                            <li class="item item-movies"><a href="/movies" class="root-item-link"><span
+                                    class="icon ic_movies"><img src="{% static 'main_page/movies.png' %}" height=32
+                                                                width=32>  </span>Фильмы</a></li>
+                            <li class="item item-games"><a href="/games" class="root-item-link"><span
+                                    class="icon ic_movies"><img src="{% static 'main_page/games.png' %}" height=32
+                                                                width=32>  </span>Игры</a></li>
+                            <li class="item item-books"><a href="/books" class="root-item-link"><span
+                                    class="icon ic_movies"><img src="{% static 'main_page/books.png' %}" height=32
+                                                                width=32>  </span>Книги</a></li>
+                            <li class="item item-serials"><a href="/serials" class="root-item-link"><span
+                                    class="icon ic_movies"><img src="{% static 'main_page/serials.png' %}" height=32
+                                                                width=32>  </span>Сериалы</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <hr>
+        </header>
+    </div>
+</div>
+
 <div class="content-block">
     {% block content %}
     {% endblock content %}

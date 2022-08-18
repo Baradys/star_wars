@@ -1,14 +1,142 @@
+html {
+    background: #1a1a1a;
+}
+
+body {
+    background-color: #fff;
+}
+div{
+    display:block;
+}
+
+.global-header{
+    background-color: #aacb96;
+    flex: 1;
+}
+
+
+.container.head {
+    padding: 0 10px;
+    margin: 10px auto;
+    position: relative;
+    z-index: 10;
+}
+
+.profile-nav{
+    width: 100.90%;
+    background: #1a1a1a;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    height: 3.0rem;
+
+}
+
+.left-profile-nav{
+    display:flex;
+    justify-content: space-around;
+}
+
+.left-profile-nav a{
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+
+}
+.left-profile-nav a:hover{
+    color: #7cc1e6;
+}
+
+.right-profile-nav{
+    display:flex;
+    justify-content: space-around;
+    color: #fff;
+}
+
+.row{
+    margin-right: 0;
+    margin-left: -15    ;
+}
+
+
+.right-profile-nav a{
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+
+}
+.right-profile-nav a:hover{
+    color: #7cc1e6;
+}
+}
+
 header {
     width: 100%;
     background: #aacb96;
-
 }
+
+header .logo a{
+    background: url(/static/main_page/sw_logo.png);
+    display: block;
+    width: 243px;
+    height: 72px;
+}
+
+.header-top {
+    position:sticky;
+    top: 0;
+    z-index: 100;
+}
+
 .header-menu{
     height: 30px;
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
     margin: 0;
+}
+
+.main-nav{
+    position: relative;
+    padding: 48px 0 0 3px;
+}
+.main-nav ul{
+    padding-inline-start: 0px;
+    margin: 0;
+}
+
+.main-nav .item {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    cursor: pointer;
+}
+
+.main-nav .item .root-item-link {
+    font-size: 14px;
+    font-size: 0.875rem;
+    line-height: 122%;
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    padding: 9px 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    position: relative;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    text-align: center;
+}
+
+.main-nav .item .root-item-link .icon.ic_movies {
+    margin: -9px 6px 0 0;
+}
+
+.main-nav .item .root-item-link .icon {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
 }
 
 .navbar__menu-item{
