@@ -32,6 +32,8 @@
 <ul>
     {% for movie in movies %}
     <li><a href="{{movie.get_url}}">{{movie}}</a></li>
+    {% include "favorites/includes/add_to_favorites.html" with type="movie" id=movie.id %}
+    {% include "favorites/includes/remove_from_favorites.html" with type="movie" id=movie.id %}
     {% endfor%}
 </ul>
 {% endblock %}

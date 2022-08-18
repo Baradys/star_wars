@@ -5,9 +5,11 @@
 {% block content %}
 <ul>
     {% for game in games %}
-        <li>
-            <a href="{{game.get_url}}">{{game}}</a>
-        </li>
+    <li>
+        <a href="{{game.get_url}}">{{game}}</a>
+        {% include "favorites/includes/add_to_favorites.html" with type="game" id=game.id %}
+        {% include "favorites/includes/remove_from_favorites.html" with type="game" id=game.id %}
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

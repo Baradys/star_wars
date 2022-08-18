@@ -18,6 +18,7 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/my-media/'
 
 CART_SESSION_ID = 'cart'
+SESSION_COOKIE_AGE = 3600*24*5
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ajax_select',
     'spurl',
+    'favorites',
 
 ]
 

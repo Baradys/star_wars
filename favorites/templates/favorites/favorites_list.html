@@ -1,0 +1,11 @@
+<div class="ml-3">
+    <form action="{% url 'favorites_delete' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Очистить избранное</button>
+    </form>
+</div>
+
+
+{% for item in favorites %}
+<a href="{{item.get_url}}">{{item}}</a>
+{% endfor %}
