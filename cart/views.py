@@ -8,13 +8,17 @@ from .cart import Cart
 from .forms import CartAddProductForm
 
 
+def get_product(request, product_slug):
+    if str(request).split('/')[-2] in list(Movie.objects.all().values_list('slug', flat=True)):
+        return get_object_or_404(Movie, slug=product_slug)
+    else:
+        return get_object_or_404(Game, slug=product_slug)
+
+
 @require_POST
 def cart_add(request, product_slug):
     cart = Cart(request)
-    if str(request).split('/')[-2] in list(Movie.objects.all().values_list('slug', flat=True)):
-        product = get_object_or_404(Movie, slug=product_slug)
-    else:
-        product = get_object_or_404(Game, slug=product_slug)
+    product = get_product(request, product_slug)
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
@@ -30,10 +34,7 @@ def cart_add(request, product_slug):
 
 def cart_remove(request, product_slug):
     cart = Cart(request)
-    if str(request).split('/')[-2] in list(Movie.objects.all().values_list('slug', flat=True)):
-        product = get_object_or_404(Movie, slug=product_slug)
-    else:
-        product = get_object_or_404(Game, slug=product_slug)
+    product = get_product(request, product_slug)
     cart.remove(product)
     if request.user.id is not None:
         profile = Profile.objects.get(user=request.user)
