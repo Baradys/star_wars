@@ -1,5 +1,6 @@
 from django.conf import settings
 
+from accounts.models import Profile
 from games.models import Game
 from movies.models import Movie
 from itertools import chain
@@ -12,6 +13,9 @@ class Cart:
         Инициализация корзины
         """
         self.session = request.session
+        if request.user.id is not None:
+            profile = Profile.objects.get(user=request.user)
+            request.session['cart'] = profile.cart_data
         cart = self.session.get(settings.CART_SESSION_ID)
         if not cart:
             # сохраняем ПУСТУЮ корзину в сессии
@@ -58,6 +62,7 @@ class Cart:
     def save(self):
         # сохраняем товар
         self.session.modified = True
+        # Profile.cart_data = self.cart
 
     def remove(self, product):
         """

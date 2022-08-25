@@ -31,6 +31,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=100, null=True, blank=True)
     slug = models.SlugField(null=False, db_index=True, unique=True)
     favorites_data = models.JSONField(default=None, null=True)
+    cart_data = models.JSONField(default=None, null=True)
 
     def __str__(self):
         return str(self.user)
