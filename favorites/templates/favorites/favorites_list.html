@@ -1,11 +1,21 @@
-<div class="ml-3">
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Избранное {% endblock %}
+{% block css_additional %}
+<link rel="stylesheet" href="{% static 'favorites/css/favorites_list.css' %}">
+{% endblock %}
+{% block content %}
+<ul>
+    {% for item in favorites %}
+    <li>
+        <a href="{{item.get_url}}">{{item}}</a>
+    </li>
+    {% endfor %}
+</ul>
+<div class="ml-3 content-block">
     <form action="{% url 'favorites_delete' %}" method="post">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Очистить избранное</button>
+        <button id="favorites-clear-button" type="submit" class="btn btn-danger">Очистить избранное</button>
     </form>
 </div>
-
-
-{% for item in favorites %}
-<a href="{{item.get_url}}">{{item}}</a>
-{% endfor %}
+{% endblock %}

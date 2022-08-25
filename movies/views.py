@@ -130,7 +130,7 @@ class SearchView(View):
             q = Q()
             movie = form.cleaned_data['movie']
             if movie:
-                q.add(Q(**{'name': movie}), Q.AND)
+                q.add(Q(**{'name__icontains': movie}), Q.AND)
             countries = form.cleaned_data['countries']
             if countries:
                 if len(countries) == 1:

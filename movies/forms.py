@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Textarea, ChoiceField
+from django.forms import Textarea, ChoiceField, CharField
 
 from crispy_forms.bootstrap import InlineCheckboxes
 from crispy_forms.helper import FormHelper
@@ -73,6 +73,7 @@ class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['countries'].label = 'Страна'
+        self.fields['movie'].label = 'Название'
         # self.fields['rating'].label = 'Рейтинг'
         self.fields['release_date_from'].label = 'Дата релиза (с)'
         self.fields['release_date_to'].label = 'Дата релиза (по)'
@@ -81,8 +82,7 @@ class SearchForm(forms.Form):
         self.helper.form_class = 'form-check form-check-inline'
         self.helper.layout = Layout(InlineCheckboxes('countries'))
 
-    movie = AutoCompleteSelectField('movie', required=False,
-                                    help_text='Начните набор текста, чтобы увидеть результат')
+    movie = CharField()
     countries = forms.MultipleChoiceField(choices=COUNTRY_CHOICES,
                                           widget=forms.CheckboxSelectMultiple,
                                           required=False)

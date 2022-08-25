@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load spurl %}
+{% block title %} Поиск {% endblock %}
+
+{% block content %}
+<h1>Поиск</h1>
+<form action="{% url 'global_search' %}" method="get">
+    {{form.media}}
+    {{ form|crispy }}
+    <input type="submit" value="Поиск" class="btn btn-success">
+</form>
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href='{% spurl path=request.get_full_path query=request.GET set_query="page=1" %}'> В начало</a>
+            <a href='{% spurl path=request.get_full_path query=request.GET set_query="page={{ object_list.previous_page_number }}" %}'> Назад</a>
+        {% endif %}
+        {% if object_list.paginator.num_pages > 1 %}
+            <span class="current">
+                Страница {{ object_list.number }} из {{ object_list.paginator.num_pages }}.
+            </span>
+        {% endif %}
+
+        {% if object_list.has_next %}
+            <a href='{% spurl path=request.get_full_path query=request.GET set_query="page={{ object_list.next_page_number }}" %}'> Вперед</a>
+            <a href='{% spurl path=request.get_full_path query=request.GET set_query="page={{ object_list.paginator.num_pages }}" %}'> Последняя</a>
+        {% endif %}
+    </span>
+</div>
+<h5 class="text-center">Результаты поиска: {% if result %} Найдено: {{result|length }}{% else %}Нет результатов{% endif %}</h5>
+    <ul>
+        {% for object in result%}
+            <li><a href="{{object.get_url}}">{{object}}</a></li>
+        {% endfor%}
+    </ul>
+{% endblock %}

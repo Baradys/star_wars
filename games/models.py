@@ -4,11 +4,14 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from main_page.models import GameManager
+
 
 class Game(models.Model):
     name = models.CharField(max_length=40)
     price = models.IntegerField(default=0)
     slug = models.SlugField(default='', null=False, db_index=True, unique=True)
+    objects = GameManager()
 
     def __str__(self):
         return str(self.name)

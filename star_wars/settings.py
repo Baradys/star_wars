@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'ajax_select',
     'spurl',
     'favorites',
+    'bootstrap3',
 
 ]
 

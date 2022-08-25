@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from next_prev import next_in_order, prev_in_order
 
+from main_page.models import MovieManager
+
 
 # Create your models here.
 class CarrierRole(models.Model):
@@ -93,6 +95,7 @@ class Movie(models.Model):
     video_link = models.CharField(null=True, blank=True, max_length=150)
     price = models.IntegerField(default=0)
     canon = models.BooleanField(default=True)
+    objects = MovieManager()
 
     class Meta:
         ordering = ('action', 'date')
