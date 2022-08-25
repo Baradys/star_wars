@@ -5,11 +5,12 @@ html {
 body {
     background-color: #fff;
 }
-div{
-    display:block;
+
+div {
+    display: block;
 }
 
-.global-header{
+.global-header {
     background-color: #aacb96;
     flex: 1;
 }
@@ -22,7 +23,7 @@ div{
     z-index: 10;
 }
 
-.profile-nav{
+.profile-nav {
     width: 100.90%;
     background: #1a1a1a;
     display: flex;
@@ -32,50 +33,53 @@ div{
 
 }
 
-.left-profile-nav{
-    display:flex;
+.left-profile-nav {
+    display: flex;
     justify-content: space-around;
 }
 
-.left-profile-nav a{
+.left-profile-nav a {
     color: #fff;
     text-decoration: none;
     transition: 0.3s;
 
 }
-.left-profile-nav a:hover{
+
+.left-profile-nav a:hover {
     color: #7cc1e6;
 }
 
-.right-profile-nav{
-    display:flex;
+.right-profile-nav {
+    display: flex;
     justify-content: space-around;
     color: #fff;
 }
 
-.row{
+.row {
     margin-right: 0;
-    margin-left: -15    ;
+    margin-left: -15;
 }
 
 
-.right-profile-nav a{
+.right-profile-nav a {
     color: #fff;
     text-decoration: none;
     transition: 0.3s;
 
 }
-.right-profile-nav a:hover{
+
+.right-profile-nav a:hover {
     color: #7cc1e6;
 }
-}
+
+
 
 header {
     width: 100%;
     background: #aacb96;
 }
 
-header .logo a{
+header .logo a {
     background: url(/static/main_page/sw_logo.png);
     display: block;
     width: 243px;
@@ -83,12 +87,12 @@ header .logo a{
 }
 
 .header-top {
-    position:sticky;
+    position: sticky;
     top: 0;
     z-index: 100;
 }
 
-.header-menu{
+.header-menu {
     height: 30px;
     display: flex;
     align-items: flex-end;
@@ -96,11 +100,12 @@ header .logo a{
     margin: 0;
 }
 
-.main-nav{
+.main-nav {
     position: relative;
     padding: 48px 0 0 3px;
 }
-.main-nav ul{
+
+.main-nav ul {
     padding-inline-start: 0px;
     margin: 0;
 }
@@ -139,11 +144,11 @@ header .logo a{
     line-height: 0;
 }
 
-.navbar__menu-item{
+.navbar__menu-item {
     display: flex;
     margin: 0;
 }
 
-.navbar__menu-item:hover{
+.navbar__menu-item:hover {
     background: gray
 }
