@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -10,8 +11,9 @@ from movies.models import Movie
 
 def favorites_list(request):
     favorites = []
-    profile = Profile.objects.get(user=request.user)
-    request.session['favorites'] = profile.favorites_data
+    if request.user.id is not None:
+        profile = Profile.objects.get(user=request.user)
+        request.session['favorites'] = profile.favorites_data
     if request.session.get('favorites'):
         for favorites_item in request.session.get('favorites'):
             if favorites_item['type'] == 'movie':
@@ -39,9 +41,10 @@ def add_to_favorites(request, id):
     if not item_exist:
         request.session['favorites'].append(add_data)
         request.session.modified = True
-        profile = Profile.objects.get(user=request.user)
-        profile.favorites_data = request.session['favorites']
-        profile.save()
+        if request.user.id is not None:
+            profile = Profile.objects.get(user=request.user)
+            profile.favorites_data = request.session['favorites']
+            profile.save()
     return redirect(request.POST.get('url_from'))
 
 
@@ -58,12 +61,13 @@ def remove_from_favorites(request, id):
             del request.session['favorites']
 
         request.session.modified = True
-        profile = Profile.objects.get(user=request.user)
-        if 'favorites' in request.session.keys():
-            profile.favorites_data = request.session['favorites']
-        else:
-            profile.favorites_data = None
-        profile.save()
+        if request.user.id is not None:
+            profile = Profile.objects.get(user=request.user)
+            if 'favorites' in request.session.keys():
+                profile.favorites_data = request.session['favorites']
+            else:
+                profile.favorites_data = None
+            profile.save()
     return redirect(request.POST.get('url_from'))
 
 
@@ -71,7 +75,8 @@ def delete_favorites(request):
     if request.session.get('favorites'):
         del request.session['favorites']
         request.session.modified = True
-        profile = Profile.objects.get(user=request.user)
-        profile.favorites_data = None
-        profile.save()
+        if request.user.id is not None:
+            profile = Profile.objects.get(user=request.user)
+            profile.favorites_data = None
+            profile.save()
     return redirect("/favorites/")
