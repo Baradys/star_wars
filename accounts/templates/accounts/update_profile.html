@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Страница профиля{% endblock %}
+{% load static %}
+{% block css_additional %}
+<link rel="stylesheet" href="{% static 'accounts/css/update_profile.css' %}">
+{% endblock %}
+{% block title %}Редактирование профиля{% endblock %}
 {% block content %}
     <h2>Измените данные</h2>
-    <form method="post" enctype="multipart/form-data">
+    <form class="col-lg-4" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success">Сохранить</button>

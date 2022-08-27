@@ -10,3 +10,4 @@ class GameAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_display = ['name', 'price']
     list_editable = ['price']
+    filter_horizontal = ['views']

@@ -1,9 +1,12 @@
 from django.conf import settings
 
 from accounts.models import Profile
+from books.models import Book
 from games.models import Game
 from movies.models import Movie
 from itertools import chain
+
+from serials.models import Serial
 
 
 class Cart:
@@ -28,7 +31,8 @@ class Cart:
         """
         product_ids = self.cart.keys()
         # получаем товары и добавляем их в корзину
-        products = list(chain(Movie.objects.filter(slug__in=product_ids), Game.objects.filter(slug__in=product_ids)))
+        products = list(chain(Movie.objects.filter(slug__in=product_ids), Game.objects.filter(slug__in=product_ids),
+                              Book.objects.filter(slug__in=product_ids), Serial.objects.filter(slug__in=product_ids)))
 
         cart = self.cart.copy()
         for product in products:

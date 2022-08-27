@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from accounts.models import Profile
+from books.models import Book
 from games.models import Game
 from movies.models import Movie
+from serials.models import Serial
 from .cart import Cart
 from .forms import CartAddProductForm
 
@@ -11,8 +13,12 @@ from .forms import CartAddProductForm
 def get_product(request, product_slug):
     if str(request).split('/')[-2] in list(Movie.objects.all().values_list('slug', flat=True)):
         return get_object_or_404(Movie, slug=product_slug)
-    else:
+    elif str(request).split('/')[-2] in list(Game.objects.all().values_list('slug', flat=True)):
         return get_object_or_404(Game, slug=product_slug)
+    elif str(request).split('/')[-2] in list(Book.objects.all().values_list('slug', flat=True)):
+        return get_object_or_404(Book, slug=product_slug)
+    elif str(request).split('/')[-2] in list(Serial.objects.all().values_list('slug', flat=True)):
+        return get_object_or_404(Serial, slug=product_slug)
 
 
 @require_POST

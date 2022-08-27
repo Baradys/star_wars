@@ -48,3 +48,10 @@ class SerialManager(models.Manager):
             qs = qs.filter(or_lookup)
 
         return qs
+
+
+class IpManager(models.Model):
+    ip = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.ip

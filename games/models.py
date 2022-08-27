@@ -4,7 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
-from main_page.models import GameManager
+from main_page.models import GameManager, IpManager
 
 
 class Game(models.Model):
@@ -12,6 +12,7 @@ class Game(models.Model):
     price = models.IntegerField(default=0)
     slug = models.SlugField(default='', null=False, db_index=True, unique=True)
     objects = GameManager()
+    views = models.ManyToManyField(IpManager, related_name="game_views", blank=True)
 
     def __str__(self):
         return str(self.name)

@@ -7,6 +7,8 @@ from django.views.generic.edit import FormMixin
 from django.db.models import Q
 
 from cart.forms import CartAddProductForm
+from main_page.models import IpManager
+from main_page.views import get_client_ip, object_counter_by_ip
 from .forms import FeedbackForm, CommentForm, RatingForm, SearchForm, MovieFilterForm
 from django.http.response import HttpResponseRedirect
 from .models import Movie, Actor, Director, Composer, FeedBack
@@ -37,6 +39,7 @@ class MovieDetail(DetailView):
     context_object_name = 'movie'
 
     def get_context_data(self, **kwargs):
+        object_counter_by_ip(self)
         context = super(MovieDetail, self).get_context_data(**kwargs)
         context['rating'] = RatingForm(self.request.POST)
         context['feedback'] = FeedbackForm(self.request.POST)

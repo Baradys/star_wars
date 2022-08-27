@@ -11,11 +11,29 @@ from django.views import View
 from books.models import Book
 from games.models import Game
 from main_page.forms import ObjectFilterForm
+from main_page.models import IpManager
 from movies.models import Movie
 from serials.models import Serial
 
 
 # Create your views here.
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+def object_counter_by_ip(request):
+    ip = get_client_ip(request.request)
+    if IpManager.objects.filter(ip=ip).exists():
+        request.object.views.add(IpManager.objects.get(ip=ip))
+    else:
+        IpManager.objects.create(ip=ip)
+        request.object.views.add(IpManager.objects.get(ip=ip))
+
 
 class Branches(TemplateView):
     template_name = 'main_page/branches.html'

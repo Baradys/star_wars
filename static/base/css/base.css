@@ -152,3 +152,12 @@ header .logo a {
 .navbar__menu-item:hover {
     background: gray
 }
+
+
+.content-block {
+    padding: 15px;
+}
+
+strong {
+    color: wheat;
+}

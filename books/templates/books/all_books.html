@@ -3,5 +3,13 @@
 {% block title %} Все книги {% endblock %}
 
 {% block content %}
-
+<ul>
+    {% for book in books %}
+    <li>
+        <a href="{{book.get_url}}">{{book}}</a>
+        {% include "favorites/includes/add_to_favorites.html" with type="book" id=book.id %}
+        {% include "favorites/includes/remove_from_favorites.html" with type="book" id=book.id %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}

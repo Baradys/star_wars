@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from next_prev import next_in_order, prev_in_order
+from main_page.models import IpManager
 
 from main_page.models import MovieManager
 
@@ -96,6 +97,7 @@ class Movie(models.Model):
     price = models.IntegerField(default=0)
     canon = models.BooleanField(default=True)
     objects = MovieManager()
+    views = models.ManyToManyField(IpManager, related_name="movie_views", blank=True)
 
     class Meta:
         ordering = ('action', 'date')

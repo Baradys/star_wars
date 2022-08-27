@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 @admin.register(Movie)
 class MovieAdmin(admin.ModelAdmin):
     list_display = ['name', 'poster_show', 'year', 'timing', 'rating_rotten_tomatoes', 'rating_IMBd']
-    filter_horizontal = ['countries', 'actors']
+    filter_horizontal = ['countries', 'actors', 'views']
     prepopulated_fields = {'slug': ('name',)}
 
     def poster_show(self, poster):
