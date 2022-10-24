@@ -63,3 +63,14 @@ class SearchView(View):
             print(len(final_set))
 
         return render(request=request, template_name=self.template_name, context=context)
+
+
+class PromotionView(View):
+    template_name = 'main_page/promotion.html'
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        products = chain(Movie.objects.all(), Game.objects.all(),
+                         Book.objects.all(), Serial.objects.all())
+        context['top_views'] = sorted(products, reverse=True, key=lambda x: x.views.all().count())[:4]
+        return render(request=request, template_name=self.template_name, context=context)

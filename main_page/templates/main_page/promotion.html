@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_additional %}
+<link rel="stylesheet" href="{% static 'main_page/css/promotion.css' %}">
+{% endblock %}
+
+{% block title %} Акции {% endblock %}
+
+{% block content %}
+<div class="promotion-block">
+    <div class="col-lg-5">
+        <h2>Самые просматриваемые:</h2>
+        <div class="promotion-object">
+            {% for object in top_views %}
+            <a href="{{object.get_url}}"><img src="{{ object.poster.url }}" alt="" height="200" width="150"></a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

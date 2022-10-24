@@ -15,26 +15,28 @@
     {% endfor %}
 </ul>
 <hr>
-<div>Год производства: {{movie.year}}</div>
-<div>Страна: {% for country in movie.countries.all %} {{country}} {% endfor %}</div>
-<div>Композитор: <a href="{{movie.composer.get_url}}">{{movie.composer}}</a></div>
-<div>Режиссер: <a href="{{movie.director.get_url}}">{{movie.director}}</a></div>
-<div>Время действия:
-    {% if movie.action < 0 %}
-    {{ movie.action|abs }} ДБЯ
-    {% else %}
-    {{ movie.action }} ПБЯ
+<div>
+    <h4>Год производства: {{movie.year}}</h4>
+    <h4>Страна: {% for country in movie.countries.all %} {{country}} {% endfor %}</h4>
+    <h4>Композитор: <a href="{{movie.composer.get_url}}">{{movie.composer}}</a></h4>
+    <h4>Режиссер: <a href="{{movie.director.get_url}}">{{movie.director}}</a></h4>
+    <h4>Время действия:
+        {% if movie.action < 0 %}
+        {{ movie.action|abs }} ДБЯ
+        {% else %}
+        {{ movie.action }} ПБЯ
+        {% endif %}
+    </h4>
+    {% if movie.get_next %}
+    <h4>Сиквел: <a href="{{movie.get_next.get_url}}">{{movie.get_next}}</a></h4>
+    {% endif %}
+    {% if movie.get_prev %}
+    <h4>Приквел: <a href="{{movie.get_prev.get_url}}">{{movie.get_prev}}</a></h4>
+    {% endif %}
+    {% if movie.poster %}
+    <img src="{{ movie.poster.url }}" alt="" height="300" width="225">
     {% endif %}
 </div>
-{% if movie.get_next %}
-<div>Сиквел: <a href="{{movie.get_next.get_url}}">{{movie.get_next}}</a></div>
-{% endif %}
-{% if movie.get_prev %}
-<div>Приквел: <a href="{{movie.get_prev.get_url}}">{{movie.get_prev}}</a></div>
-{% endif %}
-{% if movie.poster %}
-<img src="{{ movie.poster.url }}" alt="" height="300" width="225">
-{% endif %}
 
 {% if movie.movie_feedback.all %}
 <p>Все отзывы</p>
@@ -49,28 +51,29 @@
 
 {% endif %}
 {% if user.is_authenticated %}
-    <div>
-        <p>Добавить отзыв</p>
-        <form action="" id="feedback_form" method="post">
-            {%csrf_token%}
-            {{ feedback|crispy }}
-            <button form="feedback_form" type="submit">Добавить</button>
-        </form>
-    </div>
+<div>
+    <p>Добавить отзыв</p>
+    <form action="" id="feedback_form" method="post">
+        {%csrf_token%}
+        {{ feedback|crispy }}
+        <button form="feedback_form" type="submit">Добавить</button>
+    </form>
+</div>
 
-    <div>
-        <p>Оценить</p>
-        <form action="" id="rating_form" method="post">
-            {%csrf_token%}
-            {{ rating|crispy }}
-            <button form="rating_form" type="submit">Добавить</button>
-        </form>
-    </div>
+<div>
+    <p>Оценить</p>
+    <form action="" id="rating_form" method="post">
+        {%csrf_token%}
+        {{ rating|crispy }}
+        <button form="rating_form" type="submit">Добавить</button>
+    </form>
+</div>
 {% else %}
-    <p>Чтобы добавить отзыв и поставить оценку, Вы должны быть <a href="{% url 'login' %}">авторизованы</a></p>
+<p>Чтобы добавить отзыв и поставить оценку, Вы должны быть <a href="{% url 'login' %}">авторизованы</a></p>
 {% endif %}
 <div>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{movie.video_link}}" title="YouTube video player"
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{movie.video_link}}"
+            title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>

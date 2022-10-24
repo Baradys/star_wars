@@ -4,14 +4,16 @@
 
 
 {% block content %}
-<div>Название: {{game}}</div>
 <div>
-    <p>{{game.price}}</p>
-    <form action="{% url 'cart:cart_add' game.slug %}" method="post">
-        {{cart}}
-        {%csrf_token%}
-        <input type="submit" value="В корзину">
-    </form>
+    <h1>{{game}}</h1>
+    <div>
+        <p>{{game.price}}</p>
+        <form action="{% url 'cart:cart_add' game.slug %}" method="post">
+            {{cart}}
+            {%csrf_token%}
+            <input type="submit" value="В корзину">
+        </form>
+    </div>
 </div>
 
 {% endblock %}

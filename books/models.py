@@ -13,6 +13,7 @@ class Book(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True, unique=True)
     objects = BookManager()
     views = models.ManyToManyField(IpManager, related_name="book_views", blank=True)
+    poster = models.ImageField(null=True, blank=True, upload_to='books/posters/')
 
     def __str__(self):
         return str(self.name)

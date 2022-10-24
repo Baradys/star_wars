@@ -13,6 +13,7 @@ class Game(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True, unique=True)
     objects = GameManager()
     views = models.ManyToManyField(IpManager, related_name="game_views", blank=True)
+    poster = models.ImageField(null=True, blank=True, upload_to='games/posters/')
 
     def __str__(self):
         return str(self.name)

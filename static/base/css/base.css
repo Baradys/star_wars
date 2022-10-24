@@ -158,6 +158,11 @@ header .logo a {
     padding: 15px;
 }
 
-strong {
+strong, span, h2, h1, th, td, p, label, h4, li, h5 {
     color: wheat;
 }
+
+a {
+    color: #aacb96;
+}
+

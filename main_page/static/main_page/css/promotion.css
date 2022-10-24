@@ -1,0 +1,8 @@
+.promotion-block {
+    display: flex;
+}
+
+.promotion-object a {
+    padding: 5px;
+    margin: 5px;
+}

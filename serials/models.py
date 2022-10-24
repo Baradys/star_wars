@@ -14,6 +14,7 @@ class Serial(models.Model):
     slug = models.SlugField(default='', null=False, db_index=True, unique=True)
     objects = SerialManager()
     views = models.ManyToManyField(IpManager, related_name="serial_views", blank=True)
+    poster = models.ImageField(null=True, blank=True, upload_to='serials/posters/')
 
     def __str__(self):
         return str(self.name)

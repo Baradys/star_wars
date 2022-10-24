@@ -82,7 +82,7 @@ class SearchForm(forms.Form):
         self.helper.form_class = 'form-check form-check-inline'
         self.helper.layout = Layout(InlineCheckboxes('countries'))
 
-    movie = CharField()
+    movie = CharField(required=False)
     countries = forms.MultipleChoiceField(choices=COUNTRY_CHOICES,
                                           widget=forms.CheckboxSelectMultiple,
                                           required=False)
